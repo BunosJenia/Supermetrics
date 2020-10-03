@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 use Tests\SuperMetricsTestCase;
 
+/**
+ * Class PostTest
+ */
 class PostTest extends SuperMetricsTestCase
 {
+    /**
+     * Test main getters(which use for calculations) from Post object.
+     */
     public function test()
     {
         $instance = $this->getPosts()[0];

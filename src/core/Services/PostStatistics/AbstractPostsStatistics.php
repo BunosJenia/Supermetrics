@@ -6,20 +6,50 @@ namespace App\Services\PostStatistics;
 
 use App\Models\Post;
 
+/**
+ * Class AbstractPostsStatistics
+ *
+ * Combine data and make particular calculations for Posts.
+ */
 abstract class AbstractPostsStatistics
 {
-    protected array $resultedDataArray = [];
+    /**
+     * Store combined data which needed for calculation.
+     *
+     * @var array
+     */
+    protected array $combinedData = [];
 
-    abstract public function calculate(Post $post);
-    abstract protected function getResult(): array;
+    /**
+     * Combine data for calculation.
+     *
+     * @param Post $post
+     *
+     * @return void
+     */
+    abstract public function combine(Post $post): void;
+
+    /**
+     * Make calculations and return result.
+     *
+     * @return array
+     */
+    abstract protected function calculate(): array;
+
+    /**
+     * Return calculation name.
+     *
+     * @return string
+     */
     abstract protected function getStatisticsHeaderText(): string;
 
-    public function getResultMessage(): string
+    /**
+     * Return calculation name and result data.
+     *
+     * @return array
+     */
+    public function getResult(): array
     {
-        $returnArray = [
-            $this->getStatisticsHeaderText() => $this->getResult(),
-        ];
-
-        return json_encode($returnArray);
+        return [$this->getStatisticsHeaderText() => $this->calculate()];
     }
 }

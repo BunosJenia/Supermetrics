@@ -2,25 +2,33 @@
 
 declare(strict_types=1);
 
-use App\Models\Post;
+namespace Tests\Services\PostStatistics;
+
 use App\Services\PostStatistics\PostsPerWeek;
 use Tests\SuperMetricsTestCase;
 
+/**
+ * Class PostsPerWeekTest
+ *
+ * Test calculations of PostsPerWeek class.
+ */
 class PostsPerWeekTest extends SuperMetricsTestCase
 {
-    public function testValidPosts()
+    public function testCalculations()
     {
         $instance = new PostsPerWeek();
-
         $posts = $this->getPosts();
 
         foreach ($posts as $post) {
-            $instance->calculate($post);
+            $instance->combine($post);
         }
 
+        $result = $instance->getResult();
+
+        $this->assertIsArray($result);
         $this->assertEquals(
-            '{"Total posts split by week number":{"24":12,"28":12.8,"37":12}}',
-            $instance->getResultMessage()
+            '{"Total posts split by week number":{"24":4,"28":5,"37":6}}',
+            json_encode($result)
         );
     }
 }

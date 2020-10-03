@@ -6,25 +6,39 @@ namespace App\Services\PostStatistics;
 
 use App\Models\Post;
 
+/**
+ * Class PostsPerWeek
+ *
+ * This service calculate total posts split by week number.
+ */
 class PostsPerWeek extends AbstractPostsStatistics
 {
-    public function calculate(Post $post)
+    /**
+     * @param Post $post
+     */
+    public function combine(Post $post): void
     {
         $weekNumber = $post->getPostWeekNumber();
 
-        $this->resultedDataArray[$weekNumber][] = $post->getMessageLength();
+        $this->combinedData[$weekNumber][] = $post->getMessageLength();
     }
 
-    public function getResult(): array
+    /**
+     * @return array
+     */
+    public function calculate(): array
     {
         return array_map(
             function (array $data) {
-                return array_sum($data) / count($data);
+                return count($data);
             },
-            $this->resultedDataArray
+            $this->combinedData
         );
     }
 
+    /**
+     * @return string
+     */
     protected function getStatisticsHeaderText(): string
     {
         return "Total posts split by week number";

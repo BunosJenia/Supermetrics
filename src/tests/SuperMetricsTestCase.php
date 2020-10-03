@@ -7,8 +7,18 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use App\Models\Post;
 
+/**
+ * Class SuperMetricsTestCase
+ *
+ * Wrapper just for getting Posts objects stack for testing.
+ */
 class SuperMetricsTestCase extends TestCase
 {
+    /**
+     * Method for getting stack objects for testing.
+     *
+     * @return Post[]
+     */
     protected function getPosts(): array
     {
         $datetimeJune = new \DateTime("2020-06-11T04:39:03+00:00");

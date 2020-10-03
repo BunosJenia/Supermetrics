@@ -6,25 +6,39 @@ namespace App\Services\PostStatistics;
 
 use App\Models\Post;
 
+/**
+ * Class LongestPostPerMonth
+ *
+ * This service calculate longest post by character length per month.
+ */
 class LongestPostPerMonth extends AbstractPostsStatistics
 {
-    public function calculate(Post $post)
+    /**
+     * @param Post $post
+     */
+    public function combine(Post $post): void
     {
         $month = $post->getPostMonth();
 
-        $this->resultedDataArray[$month][] = $post->getMessageLength();
+        $this->combinedData[$month][] = $post->getMessageLength();
     }
 
-    public function getResult(): array
+    /**
+     * @return array
+     */
+    public function calculate(): array
     {
         return array_map(
             function (array $data) {
                 return max($data);
             },
-            $this->resultedDataArray
+            $this->combinedData
         );
     }
 
+    /**
+     * @return string
+     */
     protected function getStatisticsHeaderText(): string
     {
         return "Longest post by character length per month";
