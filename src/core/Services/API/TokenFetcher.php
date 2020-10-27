@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Services\API;
 
 use App\Exceptions\APIException;
+use App\Services\Cache\CacheInterface;
+use GuzzleHttp\Client as GuzzleClient;
 
 /**
  * Class TokenFetcher
@@ -14,7 +16,22 @@ use App\Exceptions\APIException;
 class TokenFetcher extends Client
 {
     private const REGISTER_URL = "assignment/register";
-    private const TOKEN_LIFE_TIME = 3600;
+
+    /** @var CacheInterface $cacheClient */
+    private CacheInterface $cacheClient;
+
+    /**
+     * TokenFetcher constructor.
+     *
+     * @param GuzzleClient $client
+     * @param CacheInterface $cacheClient
+     */
+    public function __construct(GuzzleClient $client, CacheInterface $cacheClient)
+    {
+        parent::__construct($client);
+
+        $this->cacheClient = $cacheClient;
+    }
 
     /**
      * @return string
@@ -23,8 +40,8 @@ class TokenFetcher extends Client
      */
     public function getToken(): string
     {
-        if (isset($_SESSION['token_time']) && isset($_SESSION['token']) && $_SESSION["token_created"] > time()) {
-            return $_SESSION["token"];
+        if ($this->cacheClient->isTokenExistAndValid()) {
+            return $this->cacheClient->getToken();
         }
 
         $options = [
@@ -38,8 +55,7 @@ class TokenFetcher extends Client
         $response = $this->sendRequest(self::POST_METHOD, self::REGISTER_URL, $options);
         $token = $response["data"]["sl_token"];
 
-        $_SESSION["token_created"] = time() + self::TOKEN_LIFE_TIME;
-        $_SESSION["token"] = $token;
+        $this->cacheClient->setToken($token);
 
         return $token;
     }

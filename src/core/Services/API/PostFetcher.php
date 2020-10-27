@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\API;
 
+use App\Exceptions\APIException;
 use App\Models\Post;
 use GuzzleHttp\Client as GuzzleClient;
-use \App\Exceptions\APIException;
 
 /**
  * Class PostFetcher

@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Tests\Services\PostStatistics;
 
-use App\Services\PostStatistics\ServiceLocator;
+use App\Services\PostStatistics\PostStatisticsFetcher;
 use App\Services\PostStatistics\AveragePostLengthPerMonth;
 use App\Services\PostStatistics\LongestPostPerMonth;
 use App\Services\PostStatistics\PostsPerWeek;
 use Tests\SuperMetricsTestCase;
 
-class ServiceLocatorTest extends SuperMetricsTestCase
+class PostStatisticsFetcherTest extends SuperMetricsTestCase
 {
     public function testOneServiceForLocator()
     {
-        $serviceLocator = new ServiceLocator();
+        $serviceLocator = new PostStatisticsFetcher();
         $serviceLocator->addService(new AveragePostLengthPerMonth);
 
-        $result = $serviceLocator->locate($this->getPosts());
+        $result = $serviceLocator->fetch($this->getPosts());
 
         $this->assertIsArray($result);
         $this->assertEquals(
@@ -28,12 +28,12 @@ class ServiceLocatorTest extends SuperMetricsTestCase
 
     public function testMultipleServicesForLocator()
     {
-        $serviceLocator = new ServiceLocator();
+        $serviceLocator = new PostStatisticsFetcher();
         $serviceLocator->addService(new AveragePostLengthPerMonth);
         $serviceLocator->addService(new LongestPostPerMonth);
         $serviceLocator->addService(new PostsPerWeek());
 
-        $result = $serviceLocator->locate($this->getPosts());
+        $result = $serviceLocator->fetch($this->getPosts());
 
         $this->assertIsArray($result);
         $this->assertEquals(

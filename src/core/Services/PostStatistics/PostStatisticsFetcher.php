@@ -5,11 +5,11 @@ namespace App\Services\PostStatistics;
 use App\Models\Post;
 
 /**
- * Class ServiceLocator
+ * Class PostStatisticsFetcher
  *
  * Combine and calculate data for services.
  */
-class ServiceLocator
+class PostStatisticsFetcher
 {
     /** @var AbstractPostsStatistics[] */
     private array $services = [];
@@ -29,7 +29,7 @@ class ServiceLocator
      *
      * @return array
      */
-    public function locate(array $posts): array
+    public function fetch(array $posts): array
     {
         $resultMessageArray = [];
 
