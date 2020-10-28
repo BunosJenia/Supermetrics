@@ -15,7 +15,7 @@ use GuzzleHttp\Client;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$client = new Client(['base_uri' => SUPERMETRICS_BASE_URL]);
+$client = new Client(['base_uri' => getenv("SUPERMETRICS_BASE_URL")]);
 $cacheClient = new SimpleCacheClient();
 $tokenFetcher = new TokenFetcher($client, $cacheClient);
 $postFetcher = new PostFetcher($client, $tokenFetcher);

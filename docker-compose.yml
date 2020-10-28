@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  php:
+    container_name: php
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+        - '.:/app'
+    env_file:
+        - '.env'
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - php
+    volumes:
+      - './public/:/app/public:ro'
+      - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf'
+    ports:
+      - '${NGINX_PUBLIC_PORT}:80'

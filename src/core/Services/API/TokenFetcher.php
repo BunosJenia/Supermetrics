@@ -46,9 +46,9 @@ class TokenFetcher extends Client
 
         $options = [
             "json" => [
-                "client_id" => SUPERMETRICS_API_CLIENT_ID,
-                "email"   => SUPERMETRICS_API_EMAIL,
-                "name" => SUPERMETRICS_API_NAME,
+                "client_id" => getenv("SUPERMETRICS_API_CLIENT_ID"),
+                "email"   => getenv("SUPERMETRICS_API_EMAIL"),
+                "name" => getenv("SUPERMETRICS_API_NAME"),
             ]
         ];
 
