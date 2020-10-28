@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace Tests\Services\PostStatistics;
 
 use App\Services\PostStatistics\PostsPerWeek;
-use Tests\SuperMetricsTestCase;
+use Tests\SuperMetricsTestTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PostsPerWeekTest
  *
  * Test calculations of PostsPerWeek class.
  */
-class PostsPerWeekTest extends SuperMetricsTestCase
+class PostsPerWeekTest extends TestCase
 {
+    use SuperMetricsTestTrait;
+
     public function testCalculations()
     {
         $instance = new PostsPerWeek();

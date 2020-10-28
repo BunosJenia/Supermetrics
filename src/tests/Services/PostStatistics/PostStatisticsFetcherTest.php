@@ -8,10 +8,13 @@ use App\Services\PostStatistics\PostStatisticsFetcher;
 use App\Services\PostStatistics\AveragePostLengthPerMonth;
 use App\Services\PostStatistics\LongestPostPerMonth;
 use App\Services\PostStatistics\PostsPerWeek;
-use Tests\SuperMetricsTestCase;
+use Tests\SuperMetricsTestTrait;
+use PHPUnit\Framework\TestCase;
 
-class PostStatisticsFetcherTest extends SuperMetricsTestCase
+class PostStatisticsFetcherTest extends TestCase
 {
+    use SuperMetricsTestTrait;
+
     public function testOneServiceForLocator()
     {
         $serviceLocator = new PostStatisticsFetcher();

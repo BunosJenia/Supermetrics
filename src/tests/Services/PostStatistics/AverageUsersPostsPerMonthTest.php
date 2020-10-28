@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace Tests\Services\PostStatistics;
 
 use App\Services\PostStatistics\AverageUsersPostsPerMonth;
-use Tests\SuperMetricsTestCase;
+use Tests\SuperMetricsTestTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class AverageUsersPostsPerMonthTest
  *
  * Test calculations of AverageUsersPostsPerMonth class.
  */
-class AverageUsersPostsPerMonthTest extends SuperMetricsTestCase
+class AverageUsersPostsPerMonthTest extends TestCase
 {
+    use SuperMetricsTestTrait;
+
     public function testCalculations()
     {
         $instance = new AverageUsersPostsPerMonth();

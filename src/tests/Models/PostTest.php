@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-use Tests\SuperMetricsTestCase;
+use Tests\SuperMetricsTestTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PostTest
  */
-class PostTest extends SuperMetricsTestCase
+class PostTest extends TestCase
 {
+    use SuperMetricsTestTrait;
+
     /**
      * Test main getters(which use for calculations) from Post object.
      */

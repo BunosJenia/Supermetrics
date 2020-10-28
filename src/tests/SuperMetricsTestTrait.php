@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use PHPUnit\Framework\TestCase;
 use App\Models\Post;
 
 /**
- * Class SuperMetricsTestCase
+ * Trait SuperMetricsTestTrait
  *
- * Wrapper just for getting Posts objects stack for testing.
+ * Just for getting Posts objects stack for testing.
  */
-class SuperMetricsTestCase extends TestCase
+trait SuperMetricsTestTrait
 {
     /**
      * Method for getting stack objects for testing.

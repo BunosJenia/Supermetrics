@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace Tests\Services\PostStatistics;
 
 use App\Services\PostStatistics\LongestPostPerMonth;
-use Tests\SuperMetricsTestCase;
+use Tests\SuperMetricsTestTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class LongestPostPerMonthTest
  *
  * Test calculations of LongestPostPerMonth class.
  */
-class LongestPostPerMonthTest extends SuperMetricsTestCase
+class LongestPostPerMonthTest extends TestCase
 {
+    use SuperMetricsTestTrait;
+
     /**
      *
      */
